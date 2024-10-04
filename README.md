@@ -12,13 +12,21 @@ This project provides a simple black screen mode designed for TVs, desktops, and
 
 Compatibility
 Mobile: Works well on mobile browsers, providing a responsive design that adjusts for smaller screens.
+
 Desktop: Perfect for desktop use, with fullscreen functionality across all modern browsers.
+
 TV: Designed for TVs, offering a clean, full black screen with easy exit options.
+
 Browser Support
+
 This project uses the Fullscreen API, which is supported in:
 
 Chrome
+
 Firefox
+
 Safari
+
 Edge
+
 Internet Explorer 11+
