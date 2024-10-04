@@ -40,7 +40,6 @@
             justify-content: center;
             align-items: center;
             background-color: black;
-            color: white;
             position: absolute;
             top: 0;
             left: 0;
@@ -68,9 +67,9 @@
 <body>
 
 <div class="info-box">
-    <h1>Welcome to TV Fullscreen Mode</h1>
-    <p>Press the button below to enter fullscreen mode.</p>
-    <p>Once in fullscreen, click anywhere to exit fullscreen.</p>
+    <h1>TV Fullscreen Black Screen Mode</h1>
+    <p>This mode is ideal for your TV when you don’t want to turn it off but want to display a black screen.</p>
+    <p>Press the button below to enter fullscreen mode. Click anywhere while in fullscreen to exit.</p>
     <button id="fullscreen-btn">Go Fullscreen</button>
 </div>
 
@@ -79,7 +78,7 @@
 </div>
 
 <div id="fullscreen-screen" class="fullscreen-mode">
-    <p>Click anywhere to exit fullscreen</p>
+    <!-- Black screen with no text -->
 </div>
 
 <script>
@@ -96,11 +95,11 @@
 
     document.addEventListener('fullscreenchange', () => {
         if (document.fullscreenElement) {
-            // Show the black screen in fullscreen mode
+            // Show the black screen with no text in fullscreen mode
             fullscreenScreen.style.display = 'flex';
             fullscreenButton.style.display = 'none';
         } else {
-            // Exit fullscreen mode and hide the black screen
+            // Exit fullscreen mode and show the original content
             fullscreenScreen.style.display = 'none';
             fullscreenButton.style.display = 'inline-block';
         }
