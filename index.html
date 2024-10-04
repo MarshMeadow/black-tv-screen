@@ -23,6 +23,32 @@
             text-align: center;
         }
 
+        .cat-container {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 100px;
+        }
+
+        .cat-container img {
+            width: 100%;
+            height: auto;
+        }
+
+        .fullscreen-mode {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+            color: white;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 999;
+        }
+
         button {
             padding: 10px 20px;
             background-color: #444;
@@ -44,11 +70,21 @@
 <div class="info-box">
     <h1>Welcome to TV Fullscreen Mode</h1>
     <p>Press the button below to enter fullscreen mode.</p>
+    <p>Once in fullscreen, click anywhere to exit fullscreen.</p>
     <button id="fullscreen-btn">Go Fullscreen</button>
+</div>
+
+<div class="cat-container">
+    <img src="https://example.com/cute-black-cat.png" alt="Cute Black Cat">
+</div>
+
+<div id="fullscreen-screen" class="fullscreen-mode">
+    <p>Click anywhere to exit fullscreen</p>
 </div>
 
 <script>
     const fullscreenButton = document.getElementById('fullscreen-btn');
+    const fullscreenScreen = document.getElementById('fullscreen-screen');
 
     fullscreenButton.addEventListener('click', () => {
         if (!document.fullscreenElement) {
@@ -59,10 +95,23 @@
     });
 
     document.addEventListener('fullscreenchange', () => {
-        if (!document.fullscreenElement) {
-            fullscreenButton.textContent = 'Go Fullscreen';
+        if (document.fullscreenElement) {
+            // Show the black screen in fullscreen mode
+            fullscreenScreen.style.display = 'flex';
+            fullscreenButton.style.display = 'none';
         } else {
-            fullscreenButton.textContent = 'Exit Fullscreen';
+            // Exit fullscreen mode and hide the black screen
+            fullscreenScreen.style.display = 'none';
+            fullscreenButton.style.display = 'inline-block';
+        }
+    });
+
+    // Exit fullscreen when clicking the black screen
+    fullscreenScreen.addEventListener('click', () => {
+        if (document.fullscreenElement) {
+            document.exitFullscreen().catch(err => {
+                alert(`Error attempting to exit fullscreen: ${err.message}`);
+            });
         }
     });
 </script>
