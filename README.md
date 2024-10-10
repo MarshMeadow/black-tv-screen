@@ -1,5 +1,7 @@
 # 🖥️ TV Fullscreen Black Screen Mode 🖤
 
+![black-screen-samsung-tv-1024x598-removebg-preview](https://github.com/user-attachments/assets/f47b4cb3-ea6a-4d87-ab1d-85cb1430a85d)
+
 This project provides a simple black screen mode designed for TVs, desktops, and mobile devices. It’s perfect for users who want a black screen on their TV without turning it off, or for other similar use cases.
 
 ## ✨ Features
