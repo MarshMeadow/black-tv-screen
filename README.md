@@ -35,6 +35,7 @@ This project uses the Fullscreen API, which is supported in:
 - Safari
 - Edge
 - Internet Explorer 11+
+- Others..
 
 ---
 
