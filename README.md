@@ -12,6 +12,14 @@ This project provides a simple black screen mode designed for TVs, desktops, and
 - **📱 Responsive**: Works across TVs, desktops, and mobile devices with an optimized layout for each.
 - **🌍 Cross-Browser Support**: Supports fullscreen functionality on all major browsers (Chrome, Firefox, Safari, Edge).
 
+### Updates - March 1, 2025
+
+- Added **click anywhere to enter fullscreen** feature (except on the cat image and GitHub link).
+- Ensured the **GitHub link works properly** without triggering fullscreen.
+- Added a **random popup** to display the latest updates (30% chance to appear).
+- Simplified the overall code structure for better performance.
+
+
 ## 🌐 Compatibility
 
 - **📱 Mobile**: Works well on mobile browsers, providing a responsive design that adjusts for smaller screens.
