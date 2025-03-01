@@ -70,12 +70,33 @@
             background-color: #666;
         }
 
+        .github-link {
+            position: absolute;
+            bottom: 15px;
+            left: 10px;
+            font-size: 0.9rem;
+            color: white;
+            z-index: 2;
+        }
+
+        .github-link a {
+            color: #1e90ff;
+            text-decoration: none;
+        }
+
+        .github-link a:hover {
+            text-decoration: underline;
+        }
+
         @media (max-width: 768px) {
             .cat-container {
                 width: 50px;
             }
             button {
                 font-size: 1rem;
+            }
+            .github-link {
+                font-size: 0.8rem;
             }
         }
     </style>
@@ -91,6 +112,10 @@
 
 <div class="cat-container" id="cat-container">
     <img src="Images/ymxqvhshxuwa1.gif" alt="Cute Black Cat">
+</div>
+
+<div class="github-link">
+    <a href="https://github.com/MarshMeadow/black-tv-screen" target="_blank">View on GitHub</a>
 </div>
 
 <div id="fullscreen-screen" class="fullscreen-mode"></div>
@@ -115,7 +140,6 @@
     }
 
     document.body.addEventListener('click', (e) => {
-        // Prevent triggering fullscreen when clicking the cat image
         if (!catContainer.contains(e.target)) {
             enterFullscreen();
         }
