@@ -17,14 +17,15 @@
             align-items: center;
             font-family: Arial, sans-serif;
             overflow: hidden;
-            user-select: none; /* Prevent text selection */
-            touch-action: manipulation; /* Optimize for touch interaction */
+            user-select: none;
+            touch-action: manipulation;
         }
 
         .info-box {
             text-align: center;
             max-width: 90%;
             word-wrap: break-word;
+            z-index: 2; /* Above fullscreen screen */
         }
 
         .cat-container {
@@ -32,6 +33,7 @@
             bottom: 10px;
             right: 10px;
             width: 70px;
+            z-index: 2;
         }
 
         .cat-container img {
@@ -70,10 +72,10 @@
 
         @media (max-width: 768px) {
             .cat-container {
-                width: 50px; /* Smaller cat image on mobile */
+                width: 50px;
             }
             button {
-                font-size: 1rem; /* Smaller button text on mobile */
+                font-size: 1rem;
             }
         }
     </style>
@@ -83,43 +85,52 @@
 <div class="info-box">
     <h1>TV Fullscreen Black Screen Mode</h1>
     <p>This mode is ideal for your TV, desktop, or mobile when you don’t want to turn it off but want to display a black screen.</p>
-    <p>Press the button below to enter fullscreen mode. Click anywhere while in fullscreen to exit.</p>
+    <p>Click anywhere (or press the button) to enter fullscreen mode. Click again in fullscreen to exit.</p>
     <button id="fullscreen-btn">Go Fullscreen</button>
 </div>
 
-<div class="cat-container">
+<div class="cat-container" id="cat-container">
     <img src="Images/ymxqvhshxuwa1.gif" alt="Cute Black Cat">
 </div>
 
-<div id="fullscreen-screen" class="fullscreen-mode">
-    <!-- Black screen with no text -->
-</div>
+<div id="fullscreen-screen" class="fullscreen-mode"></div>
 
 <script>
     const fullscreenButton = document.getElementById('fullscreen-btn');
     const fullscreenScreen = document.getElementById('fullscreen-screen');
+    const catContainer = document.getElementById('cat-container');
 
-    fullscreenButton.addEventListener('click', () => {
+    function enterFullscreen() {
         if (!document.fullscreenElement) {
             if (document.documentElement.requestFullscreen) {
                 document.documentElement.requestFullscreen();
-            } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+            } else if (document.documentElement.mozRequestFullScreen) {
                 document.documentElement.mozRequestFullScreen();
-            } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari, Opera
+            } else if (document.documentElement.webkitRequestFullscreen) {
                 document.documentElement.webkitRequestFullscreen();
-            } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+            } else if (document.documentElement.msRequestFullscreen) {
                 document.documentElement.msRequestFullscreen();
             }
         }
+    }
+
+    document.body.addEventListener('click', (e) => {
+        // Prevent triggering fullscreen when clicking the cat image
+        if (!catContainer.contains(e.target)) {
+            enterFullscreen();
+        }
+    });
+
+    fullscreenButton.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent double triggering
+        enterFullscreen();
     });
 
     document.addEventListener('fullscreenchange', () => {
         if (document.fullscreenElement) {
-            // Show the black screen with no text in fullscreen mode
             fullscreenScreen.style.display = 'flex';
             fullscreenButton.style.display = 'none';
         } else {
-            // Exit fullscreen mode and show the original content
             fullscreenScreen.style.display = 'none';
             fullscreenButton.style.display = 'inline-block';
         }
@@ -129,11 +140,11 @@
         if (document.fullscreenElement) {
             if (document.exitFullscreen) {
                 document.exitFullscreen();
-            } else if (document.mozCancelFullScreen) { // Firefox
+            } else if (document.mozCancelFullScreen) {
                 document.mozCancelFullScreen();
-            } else if (document.webkitExitFullscreen) { // Chrome, Safari, Opera
+            } else if (document.webkitExitFullscreen) {
                 document.webkitExitFullscreen();
-            } else if (document.msExitFullscreen) { // IE/Edge
+            } else if (document.msExitFullscreen) {
                 document.msExitFullscreen();
             }
         }
