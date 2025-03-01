@@ -24,8 +24,7 @@
         .info-box {
             text-align: center;
             max-width: 90%;
-            word-wrap: break-word;
-            z-index: 2; /* Above fullscreen screen */
+            z-index: 2;
         }
 
         .cat-container {
@@ -43,39 +42,19 @@
 
         .fullscreen-mode {
             display: none;
-            justify-content: center;
-            align-items: center;
-            background-color: black;
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
             z-index: 999;
-        }
-
-        button {
-            padding: 10px 20px;
-            background-color: #444;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 1.2rem;
-            border-radius: 5px;
-            margin-top: 20px;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #666;
         }
 
         .github-link {
             position: absolute;
             bottom: 15px;
             left: 10px;
-            font-size: 0.9rem;
-            color: white;
             z-index: 2;
         }
 
@@ -92,12 +71,6 @@
             .cat-container {
                 width: 50px;
             }
-            button {
-                font-size: 1rem;
-            }
-            .github-link {
-                font-size: 0.8rem;
-            }
         }
     </style>
 </head>
@@ -105,74 +78,50 @@
 
 <div class="info-box">
     <h1>TV Fullscreen Black Screen Mode</h1>
-    <p>This mode is ideal for your TV, desktop, or mobile when you don’t want to turn it off but want to display a black screen.</p>
-    <p>Click anywhere (or press the button) to enter fullscreen mode. Click again in fullscreen to exit.</p>
-    <button id="fullscreen-btn">Go Fullscreen</button>
+    <p>Click anywhere (except the cat or link) to enter fullscreen black screen mode. Click again to exit.</p>
 </div>
 
 <div class="cat-container" id="cat-container">
     <img src="Images/ymxqvhshxuwa1.gif" alt="Cute Black Cat">
 </div>
 
-<div class="github-link">
+<div class="github-link" id="github-link">
     <a href="https://github.com/MarshMeadow/black-tv-screen" target="_blank">View on GitHub</a>
 </div>
 
 <div id="fullscreen-screen" class="fullscreen-mode"></div>
 
 <script>
-    const fullscreenButton = document.getElementById('fullscreen-btn');
     const fullscreenScreen = document.getElementById('fullscreen-screen');
     const catContainer = document.getElementById('cat-container');
+    const githubLink = document.getElementById('github-link');
 
     function enterFullscreen() {
         if (!document.fullscreenElement) {
-            if (document.documentElement.requestFullscreen) {
-                document.documentElement.requestFullscreen();
-            } else if (document.documentElement.mozRequestFullScreen) {
-                document.documentElement.mozRequestFullScreen();
-            } else if (document.documentElement.webkitRequestFullscreen) {
-                document.documentElement.webkitRequestFullscreen();
-            } else if (document.documentElement.msRequestFullscreen) {
-                document.documentElement.msRequestFullscreen();
-            }
+            document.documentElement.requestFullscreen?.();
         }
     }
 
+    function exitFullscreen() {
+        if (document.fullscreenElement) {
+            document.exitFullscreen?.();
+        }
+    }
+
+    // Click anywhere to enter fullscreen — except on cat or GitHub link
     document.body.addEventListener('click', (e) => {
-        if (!catContainer.contains(e.target)) {
+        if (!catContainer.contains(e.target) && !githubLink.contains(e.target)) {
             enterFullscreen();
         }
     });
 
-    fullscreenButton.addEventListener('click', (e) => {
-        e.stopPropagation(); // Prevent double triggering
-        enterFullscreen();
-    });
-
+    // Show black screen when fullscreen starts, hide it when fullscreen ends
     document.addEventListener('fullscreenchange', () => {
-        if (document.fullscreenElement) {
-            fullscreenScreen.style.display = 'flex';
-            fullscreenButton.style.display = 'none';
-        } else {
-            fullscreenScreen.style.display = 'none';
-            fullscreenButton.style.display = 'inline-block';
-        }
+        fullscreenScreen.style.display = document.fullscreenElement ? 'block' : 'none';
     });
 
-    fullscreenScreen.addEventListener('click', () => {
-        if (document.fullscreenElement) {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (document.mozCancelFullScreen) {
-                document.mozCancelFullScreen();
-            } else if (document.webkitExitFullscreen) {
-                document.webkitExitFullscreen();
-            } else if (document.msExitFullscreen) {
-                document.msExitFullscreen();
-            }
-        }
-    });
+    // Exit fullscreen when clicking the black screen
+    fullscreenScreen.addEventListener('click', exitFullscreen);
 </script>
 
 </body>
