@@ -67,6 +67,37 @@
             text-decoration: underline;
         }
 
+        /* Popup Styles */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(30, 30, 30, 0.95);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            text-align: center;
+            z-index: 1000;
+        }
+
+        .popup button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            background: #444;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            border-radius: 5px;
+        }
+
+        .popup button:hover {
+            background: #666;
+        }
+
         @media (max-width: 768px) {
             .cat-container {
                 width: 50px;
@@ -91,10 +122,20 @@
 
 <div id="fullscreen-screen" class="fullscreen-mode"></div>
 
+<!-- Popup for updates -->
+<div id="update-popup" class="popup">
+    <h2>Latest Update</h2>
+    <p>- Click anywhere (except cat & link) to go fullscreen.</p>
+    <p>- GitHub link now works properly.</p>
+    <p>- Simplified code for better performance.</p>
+    <button onclick="closePopup()">OK</button>
+</div>
+
 <script>
     const fullscreenScreen = document.getElementById('fullscreen-screen');
     const catContainer = document.getElementById('cat-container');
     const githubLink = document.getElementById('github-link');
+    const popup = document.getElementById('update-popup');
 
     function enterFullscreen() {
         if (!document.fullscreenElement) {
@@ -122,6 +163,17 @@
 
     // Exit fullscreen when clicking the black screen
     fullscreenScreen.addEventListener('click', exitFullscreen);
+
+    // Show update popup sometimes (e.g., 30% chance)
+    window.onload = function () {
+        if (Math.random() < 0.3) {
+            popup.style.display = "block";
+        }
+    };
+
+    function closePopup() {
+        popup.style.display = "none";
+    }
 </script>
 
 </body>
